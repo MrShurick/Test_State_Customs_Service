@@ -11,7 +11,8 @@ export class Service {
   private http = inject(HttpClient);
   
   public getTest(): Observable<TCustomsTestData> {
-    return this.http.get<TCustomsTestData>('/tests/customs_test_questions.json');
+    const baseHref = document.getElementsByTagName('base')[0]?.href || './';
+    return this.http.get<TCustomsTestData>(`${baseHref}tests/customs_test_questions.json`);
   }
 
 }

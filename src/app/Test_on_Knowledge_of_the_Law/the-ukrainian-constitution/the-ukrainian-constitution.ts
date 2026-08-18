@@ -2,6 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { Service } from '../../services/service/service';
 import { Router } from '@angular/router';
 import { IQuestion, TCustomsTestData } from '../../services/interface/interfaceType';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-the-ukrainian-constitution',
@@ -19,7 +20,9 @@ export class TheUkrainianConstitution implements OnInit {
   public isAnimate = signal(false);
 
   ngOnInit(): void {
-    this.service.getTest().subscribe((datas: TCustomsTestData) => {
+    this.service.getTest().pipe(
+      take(1)
+    ).subscribe((datas: TCustomsTestData) => {
       for (const catagoryKey in datas) {
         const subCatagory = datas[catagoryKey];
 
