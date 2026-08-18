@@ -1,0 +1,25 @@
+<div class="main">
+    <div class="head">
+        <h1>Оберіть направлення</h1>
+    </div>
+    
+    <div class="fields">
+
+        <div class="categoryBlock">
+            @for (data of categorys(); track $index) {
+                <h3>{{data.title}}</h3>
+                
+                <div class="subcatagory">
+                    @for (subTitle of data.subCategory; track $index) {
+                        <a  
+                            [routerLink]="subTitle.link" 
+                            class="catagoryItem"
+                            >
+                            {{subTitle.title}}
+                            </a>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

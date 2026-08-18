@@ -1,0 +1,57 @@
+.main {
+    display: grid;
+    grid-template-rows: 10% 1fr;
+    justify-items: center;
+    align-items: center;
+    width: 100%;
+
+    .head {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        color: white;
+        background-color: darkblue;
+    }
+
+    .fields {
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        width: 100%;
+        padding: 0.5rem;
+        gap: 1rem;
+
+        .categoryBlock {
+            display: grid;
+            justify-items: center;
+            align-items: center;
+            width: 100%;
+            text-align: center;
+
+            h3 {
+                color: white;
+                background-color: black;
+                padding: 1rem;
+                width: 100%;
+            }
+
+            .subcatagory {
+                display: grid;
+                justify-items: center;
+                align-items: center;
+                width: 100%;
+
+                a {
+                    text-decoration: none;
+                    color: white;
+                    background-color: gray;
+                    padding: 1rem;
+                    width: 100%;
+                    border-bottom: 2px solid black;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,91 @@
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { Service } from '../../services/service/service';
+import { Router } from '@angular/router';
+import { IQuestion, TCustomsTestData } from '../../services/interface/interfaceType';
+
+@Component({
+  selector: 'app-the-ukrainian-constitution',
+  imports: [],
+  templateUrl: './the-ukrainian-constitution.html',
+  styleUrl: './the-ukrainian-constitution.scss',
+})
+export class TheUkrainianConstitution implements OnInit {
+  private service = inject(Service);
+  private router = inject(Router);
+
+  public questions = signal<IQuestion[]>([]);
+  public selectedAnswers = signal<Record<number, string>>({});
+  public questInd = signal(0);
+  public isAnimate = signal(false);
+
+  ngOnInit(): void {
+    this.service.getTest().subscribe((datas: TCustomsTestData) => {
+      for (const catagoryKey in datas) {
+        const subCatagory = datas[catagoryKey];
+
+        if (typeof subCatagory === 'object' && subCatagory !== null && !Array.isArray(subCatagory)) {
+          const typedSubCatagor = subCatagory as unknown as Record<string, IQuestion[]>;
+          const constitKey = Object.keys(typedSubCatagor).find(key => key.includes('Конституці'));
+
+          if (constitKey && Array.isArray(typedSubCatagor[constitKey])) {
+            this.questions.set(typedSubCatagor[constitKey]);
+            break;
+          }
+        }
+      }
+    });
+  }
+
+  public back(): void {
+    this.router.navigate(['/']);
+  }
+
+  public onRadioClic(event: MouseEvent, questionIndex: number, option: string): void {
+    const currentAnswer = this.selectedAnswers()[questionIndex];
+
+    if (currentAnswer === option) {
+      event.preventDefault();
+      this.selectedAnswers.update(answers => {
+        const updated = { ...answers };
+        delete updated[questionIndex];
+        return updated;
+      });
+    } else {
+      this.selectedAnswers.update(answers => ({
+        ...answers,
+        [questionIndex]: option
+      }));
+    }
+  }
+
+  public isCorrectAnswer(test: IQuestion, questionIndex: number, option: string): boolean {
+    const selected = this.selectedAnswers()[questionIndex];
+    const correctAnswer = test.correct_answer || test.options; 
+    return selected === option && option === correctAnswer;
+  }
+  public nextOffer(): void {
+    if (this.isAnimate()) return;
+
+    if (this.questInd() < this.questions().length - 1) {
+
+      this.isAnimate.set(true);
+
+      this.questInd.update(i => i + 1);
+
+      setTimeout(() => this.isAnimate.set(false), 500);
+    }
+  }
+
+  public backOffer(): void {
+    if (this.isAnimate()) return;
+
+    if (this.questInd() > 0) {
+
+      this.isAnimate.set(true);
+
+      this.questInd.update(i => i - 1);
+
+      setTimeout(() => this.isAnimate.set(false), 500);
+    }
+  }
+}

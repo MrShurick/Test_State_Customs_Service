@@ -1,3 +1,47 @@
 import { Routes } from '@angular/router';
+import { Home } from './home/home';
+import { TheUkrainianConstitution } from './Test_on_Knowledge_of_the_Law/the-ukrainian-constitution/the-ukrainian-constitution';
+import { CustomsCodeOfUkr } from './Test_on_Knowledge_of_the_Law/customs-code-of-ukr/customs-code-of-ukr';
+import { UkrOnTheCivilService } from './Test_on_Knowledge_of_the_Law/ukr-on-the-civil-service/ukr-on-the-civil-service';
+import { Ok1 } from './Assessment_of_Customs_Competencies/ok-1/ok-1';
+import { Ok2 } from './Assessment_of_Customs_Competencies/ok-2/ok-2';
+import { Ok3 } from './Assessment_of_Customs_Competencies/ok-3/ok-3';
+import { Ok4 } from './Assessment_of_Customs_Competencies/ok-4/ok-4';
+import { Ok5 } from './Assessment_of_Customs_Competencies/ok-5/ok-5';
+import { Ok6 } from './Assessment_of_Customs_Competencies/ok-6/ok-6';
+import { Ok7 } from './Assessment_of_Customs_Competencies/ok-7/ok-7';
+import { Ok8 } from './Assessment_of_Customs_Competencies/ok-8/ok-8';
+import { Ok9 } from './Assessment_of_Customs_Competencies/ok-9/ok-9';
+import { Ok10 } from './Assessment_of_Customs_Competencies/ok-10/ok-10';
+import { Ok11 } from './Assessment_of_Customs_Competencies/ok-11/ok-11';
+import { Ok12 } from './Assessment_of_Customs_Competencies/ok-12/ok-12';
+import { Ok13 } from './Assessment_of_Customs_Competencies/ok-13/ok-13';
+import { Ok14 } from './Assessment_of_Customs_Competencies/ok-14/ok-14';
+import { Ok15 } from './Assessment_of_Customs_Competencies/ok-15/ok-15';
+import { Ok16 } from './Assessment_of_Customs_Competencies/ok-16/ok-16';
+import { Ok17 } from './Assessment_of_Customs_Competencies/ok-17/ok-17';
 
-export const routes: Routes = [];
+
+export const routes: Routes = [
+    { path: '', component: Home },
+    { path: 'ukrConst', component: TheUkrainianConstitution },
+    { path: 'custmCod', component: CustomsCodeOfUkr },
+    { path: 'ukrCivil', component: UkrOnTheCivilService },
+    { path: 'ok-1', component: Ok1 },
+    { path: 'ok-2', component: Ok2 },
+    { path: 'ok-3', component: Ok3 },
+    { path: 'ok-4', component: Ok4 },
+    { path: 'ok-5', component: Ok5 },
+    { path: 'ok-6', component: Ok6 },
+    { path: 'ok-7', component: Ok7 },
+    { path: 'ok-8', component: Ok8 },
+    { path: 'ok-9', component: Ok9 },
+    { path: 'ok-10', component: Ok10 },
+    { path: 'ok-11', component: Ok11 },
+    { path: 'ok-12', component: Ok12 },
+    { path: 'ok-13', component: Ok13 },
+    { path: 'ok-14', component: Ok14 },
+    { path: 'ok-15', component: Ok15 },
+    { path: 'ok-16', component: Ok16 },
+    { path: 'ok-17', component: Ok17 },
+];
