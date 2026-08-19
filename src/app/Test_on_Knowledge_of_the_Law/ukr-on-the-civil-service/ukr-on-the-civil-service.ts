@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, QueryList, signal, ViewChild, ViewChildren } from '@angular/core';
 import { Service } from '../../services/service/service';
 import { Router } from '@angular/router';
 import { IQuestion, TCustomsTestData } from '../../services/interface/interfaceType';
@@ -28,8 +28,7 @@ export class UkrOnTheCivilService {
 
         if (typeof subCatagory === 'object' && subCatagory !== null && !Array.isArray(subCatagory)) {
           const typedSubCatagor = subCatagory as unknown as Record<string, IQuestion[]>;
-          const constitKey = Object.keys(typedSubCatagor).
-            find(key => key.includes('державн'));
+          const constitKey = Object.keys(typedSubCatagor).find(key => key.includes('Конституці'));
 
           if (constitKey && Array.isArray(typedSubCatagor[constitKey])) {
             this.questions.set(typedSubCatagor[constitKey]);
@@ -37,7 +36,6 @@ export class UkrOnTheCivilService {
           }
         }
       }
-      console.log(this.questions())
     });
   }
 
@@ -67,7 +65,13 @@ export class UkrOnTheCivilService {
     const selected = this.selectedAnswers()[questionIndex];
     const correctAnswer = test.correct_answer; 
     return selected === option && option === correctAnswer;
-}
+  }
+
+  public isQuestAnswerCott(questIn: number, test: IQuestion): boolean {
+    const select = this.selectedAnswers()[questIn];
+    return select === test.correct_answer;
+  }
+  
   public nextOffer(): void {
     if (this.isAnimate()) return;
 
@@ -76,6 +80,8 @@ export class UkrOnTheCivilService {
       this.isAnimate.set(true);
 
       this.questInd.update(i => i + 1);
+
+      this.scrollToActive(this.questInd());
 
       setTimeout(() => this.isAnimate.set(false), 500);
     }
@@ -90,11 +96,33 @@ export class UkrOnTheCivilService {
 
       this.questInd.update(i => i - 1);
 
+      this.scrollToActive(this.questInd());
+
       setTimeout(() => this.isAnimate.set(false), 500);
     }
   }
 
+  public selectQuestionIndex(index: number): void {
+    if (this.isAnimate()) return;
+    this.questInd.set(index);
+    this.scrollToActive(index);
+}
+
   public get currentQuestion(): IQuestion | undefined {
     return this.questions()[this.questInd()] || undefined;
+  }
+
+  @ViewChild('numbContainer') numbContainer!: ElementRef;
+  @ViewChildren('numItem') numItems!: QueryList<ElementRef>;
+
+  public scrollToActive(index: number) {
+    const itemsArray = this.numItems.toArray();
+    if (itemsArray[index]) {
+      itemsArray[index].nativeElement.scrollIntoView({
+        behavior: 'smooth' as ScrollBehavior,
+        inline: 'nearest',
+        block: 'nearest'
+      })
+    }
   }
 }

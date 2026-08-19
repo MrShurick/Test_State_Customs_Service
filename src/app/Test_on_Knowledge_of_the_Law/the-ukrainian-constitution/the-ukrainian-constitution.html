@@ -23,6 +23,7 @@
                         [class.active]="questInd() === $index "
                         [class.correct-answer]="isQuestAnswerCott($index, item)"
                         [class.non-answer]="!isQuestAnswerCott($index, item)"
+                        [class.nextQuest]="isAnimate()"
                         (click)="selectQuestionIndex($index)"
                     >
                         {{$index + 1}}

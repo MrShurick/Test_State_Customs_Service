@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, QueryList, signal, ViewChild, ViewChildren } from '@angular/core';
 import { Service } from '../../services/service/service';
 import { Router } from '@angular/router';
 import { IQuestion, TCustomsTestData } from '../../services/interface/interfaceType';
@@ -37,7 +37,6 @@ export class Ok2 {
         }
       }
     });
-    console.log(this.questions())
   }
 
   public back(): void {
@@ -66,7 +65,13 @@ export class Ok2 {
     const selected = this.selectedAnswers()[questionIndex];
     const correctAnswer = test.correct_answer; 
     return selected === option && option === correctAnswer;
-}
+  }
+
+  public isQuestAnswerCott(questIn: number, test: IQuestion): boolean {
+    const select = this.selectedAnswers()[questIn];
+    return select === test.correct_answer;
+  }
+  
   public nextOffer(): void {
     if (this.isAnimate()) return;
 
@@ -75,6 +80,8 @@ export class Ok2 {
       this.isAnimate.set(true);
 
       this.questInd.update(i => i + 1);
+
+      this.scrollToActive(this.questInd());
 
       setTimeout(() => this.isAnimate.set(false), 500);
     }
@@ -89,11 +96,33 @@ export class Ok2 {
 
       this.questInd.update(i => i - 1);
 
+      this.scrollToActive(this.questInd());
+
       setTimeout(() => this.isAnimate.set(false), 500);
     }
   }
 
+  public selectQuestionIndex(index: number): void {
+    if (this.isAnimate()) return;
+    this.questInd.set(index);
+    this.scrollToActive(index);
+}
+
   public get currentQuestion(): IQuestion | undefined {
     return this.questions()[this.questInd()] || undefined;
+  }
+
+  @ViewChild('numbContainer') numbContainer!: ElementRef;
+  @ViewChildren('numItem') numItems!: QueryList<ElementRef>;
+
+  public scrollToActive(index: number) {
+    const itemsArray = this.numItems.toArray();
+    if (itemsArray[index]) {
+      itemsArray[index].nativeElement.scrollIntoView({
+        behavior: 'smooth' as ScrollBehavior,
+        inline: 'nearest',
+        block: 'nearest'
+      })
+    }
   }
 }

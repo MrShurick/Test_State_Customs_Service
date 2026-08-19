@@ -42,12 +42,72 @@
         padding: 1rem;
         transition: height 0.5s ease-in-out;
 
+        .numb {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            max-width: 100%;
+            padding: 0.5rem;
+            gap: 0.25rem;
+            overflow-x: scroll;
+            flex-wrap: nowrap;
+            white-space: nowrap;
+
+            p {
+                padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+                border-radius: 1rem;
+                cursor: pointer;
+                transition: 
+                    back-groundcolor 0.3s ease-in-out,
+                    box-shadow 0.3s ease-in-out,
+                    color 0.3s ease-in-out;
+
+                &.active {
+                    background-color: rgba(0, 0, 0, 0.402);
+                    border-radius: 0.25rem;
+                    color: white;
+                }
+
+                &.correct-answer {
+                    box-shadow: 0.1rem 0.5rem 1rem rgba(0, 100, 0, 0.622);
+                    background-color: rgba(0, 100, 0, 0.561);
+                    border-radius: 0.25rem;
+                }
+
+                &.non-answer {
+                    box-shadow: 0.1rem 0.5rem 1rem rgba(180, 0, 0, 0.622);
+                    background-color: rgba(180, 0, 0, 0.622);
+                    border-radius: 0.25rem;
+                }
+            }
+
+            &::-webkit-scrollbar {
+                height: 0.25rem;
+            }
+
+            &::-webkit-scrollbar-track {
+                background-color: rgba(0, 0, 0, 0.279);
+                border-radius: 0.5rem;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: rgba(107, 107, 107, 0.669);
+                border-radius: 0.5rem;
+                transition: 
+                    background-color 0.3s ease-in-out;
+
+                &:hover {
+                    background-color: black;
+                }
+            }
+        }
+
         .test {
             display: grid;
             align-items: start;
             justify-content: start;
             width: 100%;
-            min-height: 45vh;
+            min-height: 40vh;
             padding: 1rem;
             background-color: antiquewhite;
             border: 1px solid black;
@@ -117,6 +177,17 @@
     } to {
         opacity: 1;
         transform: translateX(0);
+    }
+}
+
+@media(min-width: 1152px) {
+    .main {
+        .block-1 {
+            .test {
+                width: 50%;
+                min-height: 40vh;
+            }
+        }
     }
 }
 

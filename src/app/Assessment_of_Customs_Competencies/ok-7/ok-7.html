@@ -17,7 +17,17 @@
             @let currentTest = questions()[currentIndex];
 
             <div class="numb">
-                <h3>{{questions().length}} / {{currentIndex + 1}}</h3>
+                @for (item of questions(); track $index) {
+                    <p
+                        #numItem
+                        [class.active]="questInd() === $index "
+                        [class.correct-answer]="isQuestAnswerCott($index, item)"
+                        [class.non-answer]="!isQuestAnswerCott($index, item)"
+                        (click)="selectQuestionIndex($index)"
+                    >
+                        {{$index + 1}}
+                    </p>
+                }
             </div>
 
             <div 

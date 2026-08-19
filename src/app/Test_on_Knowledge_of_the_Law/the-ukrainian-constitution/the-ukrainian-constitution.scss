@@ -180,3 +180,14 @@
     }
 }
 
+@media(min-width: 1152px) {
+    .main {
+        .block-1 {
+            .test {
+                width: 50%;
+                min-height: 40vh;
+            }
+        }
+    }
+}
+
