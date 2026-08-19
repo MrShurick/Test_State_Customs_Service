@@ -20,8 +20,8 @@
         justify-items: center;
         align-items: center;
         width: 100%;
-        padding: 0.5rem;
         gap: 1rem;
+        padding: 0;
 
         .categoryBlock {
             display: grid;
@@ -44,12 +44,22 @@
                 width: 100%;
 
                 a {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: start;
                     text-decoration: none;
                     color: white;
                     background-color: gray;
                     padding: 1rem;
                     width: 100%;
+                    gap: 1rem;
                     border-bottom: 2px solid black;
+
+                    span {
+                        font-size: 2rem;
+                        margin-left: auto;
+                    }
                 }
             }
         }

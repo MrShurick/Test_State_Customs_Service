@@ -1,0 +1,121 @@
+.main {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    gap: 1rem;
+    overflow: hidden;
+
+    .head {
+        display: grid;
+        grid-template-columns: 5% 1fr;
+        justify-items: center;
+        align-items: center;
+        width: 100%;
+        text-align: center;
+        background-color: darkblue;
+        color: white;
+        padding: 1rem;
+
+        h1 {
+            font-size: 1rem;
+        }
+
+        button {
+            background: none;
+            border: none;
+            background-color: darkgreen;
+            padding: 0.25rem;
+            font-size: 0.8rem;
+            border-radius: 0.5rem;
+            color: white;
+            box-shadow: 0.25rem 0.2rem 0.25rem rgba(4, 4, 4, 0.553);
+            cursor: pointer;
+        }
+    }
+
+    .block-1 {
+        display: grid; 
+        justify-items: center;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1rem;
+        transition: height 0.5s ease-in-out;
+
+        .test {
+            display: grid;
+            align-items: start;
+            justify-content: start;
+            width: 100%;
+            min-height: 45vh;
+            padding: 1rem;
+            background-color: antiquewhite;
+            border: 1px solid black;
+            border-radius: 1rem;
+            box-shadow: 0.5rem 0.5rem 0.8rem rgba(0, 0, 0, 0.508);
+            transition: all 0.8s ease-in-out;
+
+            &.nextQuest {
+                animation: nextCard 0.5s ease-in-out;
+            }
+
+            .divInput {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.5rem;
+                width: 100%;
+                border-radius: 0.5rem;
+                transition: 
+                    box-shadow 0.3s ease-in-out,
+                    background-color 0.3s ease-in-out,
+                    border-radius 0.3s ease-in-out;
+
+                &.correct-answer {
+                    box-shadow: 0.1rem 0.5rem 1rem rgba(0, 100, 0, 0.622);
+                    background-color: rgba(0, 100, 0, 0.561);
+                    border-radius: 0.5rem;
+                }
+
+                label {
+                    width: 100%;
+                    cursor: pointer;
+                }
+
+                input {
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .btnNextBack {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+
+            button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: none;
+                border: none;
+                cursor: pointer;
+                .leftarr {
+                transform: rotate(180deg);
+            }
+            }
+        }
+    }
+}
+
+@keyframes nextCard {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    } to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+

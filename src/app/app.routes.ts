@@ -23,7 +23,8 @@ import { Ok17 } from './Assessment_of_Customs_Competencies/ok-17/ok-17';
 
 
 export const routes: Routes = [
-    { path: '', component: Home },
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: 'home', component: Home },
     { path: 'ukrConst', component: TheUkrainianConstitution },
     { path: 'custmCod', component: CustomsCodeOfUkr },
     { path: 'ukrCivil', component: UkrOnTheCivilService },

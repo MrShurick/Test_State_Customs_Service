@@ -56,8 +56,4 @@ export class Home implements OnInit {
       this.categorys.set(groups);
     });
   }
-
-  public clickTest(name: string): void {
-    
-  }
 }

@@ -13,33 +13,45 @@
 
     <div class="block-1">
         @if(questions().length && questions()[questInd()]) {
-            <div class="numb">
-                <h3>{{questions().length}} / {{questInd()}}</h3>
-            </div>
-            @for (test of [questions()[questInd()]]; track $index; let q = $index) {
-                <div 
-                    class="test"
-                    [class.nextQuest]="isAnimate()"
-                    >
-                    <h3>{{test.question}}</h3>
+            @let currentIndex = questInd();
+            @let currentTest = questions()[currentIndex];
 
-                    @for (answer of test.options; track $index; let a = $index) {
-                        <div 
-                            class="divInput"
-                            [class.correct-answer]="isCorrectAnswer(test, q, answer)"
-                            >
-                            <input 
-                                type="radio" 
-                                [id]="'q-' + q + '-a-' + a"
-                                [name]="'question-' + q"
-                                [checked]="selectedAnswers()[q] === answer"
-                                (click)="onRadioClic($event, q, answer)"
-                            >
-                            <label [for]="'q-' + q + '-a-' + a"> {{answer}} </label>
-                        </div>
-                    }
-                </div>
-            }
+            <div class="numb">
+                @for (item of questions(); track $index) {
+                    <p
+                        #numItem
+                        [class.active]="questInd() === $index "
+                        [class.correct-answer]="isQuestAnswerCott($index, item)"
+                        [class.non-answer]="!isQuestAnswerCott($index, item)"
+                        (click)="selectQuestionIndex($index)"
+                    >
+                        {{$index + 1}}
+                    </p>
+                }
+            </div>
+
+            <div 
+                class="test"
+                [class.nextQuest]="isAnimate()"
+                >
+                <h3>{{currentTest.question}}</h3>
+
+                @for (answer of currentTest.options; track $index; let a = $index) {
+                    <div 
+                        class="divInput"
+                        [class.correct-answer]="isCorrectAnswer(currentTest, currentIndex, answer)"
+                        >
+                        <input 
+                            type="radio" 
+                            [id]="'q-' + currentIndex + '-a-' + a"
+                            [name]="'question-' + currentIndex"
+                            [checked]="selectedAnswers()[currentIndex] === answer"
+                            (click)="onRadioClic($event, currentIndex, answer)"
+                        >
+                        <label [for]="'q-' + currentIndex + '-a-' + a"> {{answer}} </label>
+                    </div>
+                }
+            </div>
 
             <div class="btnNextBack">
                 <button 

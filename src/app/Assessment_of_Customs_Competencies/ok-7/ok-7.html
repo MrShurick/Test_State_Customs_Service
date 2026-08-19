@@ -1,1 +1,65 @@
-<p>ok-7 works!</p>
+<div class="main">
+    <div class="head">
+        <button 
+            class="btnBack" 
+            type="button"
+            (click)="back()"
+            >
+            Назад
+        </button>
+
+        <h1>  [ОК-7] Нетарифне регулювання  </h1>
+    </div>
+
+    <div class="block-1">
+        @if(questions().length && questions()[questInd()]) {
+            @let currentIndex = questInd();
+            @let currentTest = questions()[currentIndex];
+
+            <div class="numb">
+                <h3>{{questions().length}} / {{currentIndex + 1}}</h3>
+            </div>
+
+            <div 
+                class="test"
+                [class.nextQuest]="isAnimate()"
+                >
+                <h3>{{currentTest.question}}</h3>
+
+                @for (answer of currentTest.options; track $index; let a = $index) {
+                    <div 
+                        class="divInput"
+                        [class.correct-answer]="isCorrectAnswer(currentTest, currentIndex, answer)"
+                        >
+                        <input 
+                            type="radio" 
+                            [id]="'q-' + currentIndex + '-a-' + a"
+                            [name]="'question-' + currentIndex"
+                            [checked]="selectedAnswers()[currentIndex] === answer"
+                            (click)="onRadioClic($event, currentIndex, answer)"
+                        >
+                        <label [for]="'q-' + currentIndex + '-a-' + a"> {{answer}} </label>
+                    </div>
+                }
+            </div>
+
+            <div class="btnNextBack">
+                <button 
+                    class="btnBackTest"
+                    type="button"
+                    (click)="backOffer()"
+                    >
+                    <img src="free-icon-back-left-arrow-square-button-outline-54921.png" alt="" width="64">
+                </button>
+
+                <button 
+                    class="btnNextTest"
+                    type="button"
+                    (click)="nextOffer()"
+                    >
+                    <img src="free-icon-back-left-arrow-square-button-outline-54921.png" alt="" class="leftarr" width="64">
+                </button>
+            </div> 
+        }
+    </div>
+</div>
